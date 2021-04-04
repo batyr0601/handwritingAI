@@ -3,7 +3,7 @@ Python 3.8.6
 
 ## Dependencies
  * Open cv2
- * Tensorflow
+ * Tensorflow 2.3.1
  * matplotlib
  * numpy
 
