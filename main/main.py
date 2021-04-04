@@ -33,3 +33,25 @@ plt.ylabel("Crossentropy loss")
 plt.plot(history.history['loss']) # Get loss history & plot it
 
 plt.show()
+
+
+while(True): # Input loop for numbers
+    path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
+    if(path == 'EXIT'):
+        break
+    else:
+        path = path.replace(chr(92),chr(2215)) # Fix bug with file paths
+        img = cv.imread(path)
+        ret, img = cv.threshold(img,254,255,cv.THRESH_BINARY) # Black and white the image
+        img = np.invert(np.array([img])) # Invert to be white on black
+        plt.imshow(img[0])
+        plt.show()
+        prediction = model.predict(img[0])
+        count = 0
+        for x in prediction:
+            print(f'{count}: {(x*100):.2f}')
+            count += 1
+        plt.imshow(img[0])
+        plt.show()
+
+
