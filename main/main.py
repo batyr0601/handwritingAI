@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import os
 
 mnist = tf.keras.datasets.mnist # Gets mnist data set
 (x_train, y_train), (x_test, y_test) = mnist.load_data() # Loads data into training and test sets
@@ -40,7 +41,7 @@ while(True): # Input loop for numbers
     if(path == 'EXIT'):
         break
     else:
-        path = path.replace(chr(92),chr(2215)) # Fix bug with file paths
+        path = path.replace(os.sep,'/') # Fix bug with file paths
         img = cv.imread(path)
         ret, img = cv.threshold(img,254,255,cv.THRESH_BINARY) # Black and white the image
         img = np.invert(np.array([img])) # Invert to be white on black
