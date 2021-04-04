@@ -7,3 +7,4 @@ Python 3.8.6
  * matplotlib
  * numpy
 
+colegio
