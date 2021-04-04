@@ -19,9 +19,17 @@ model.add(tf.keras.layers.Dense(units=10, activation = tf.nn.softmax)) # Add out
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(x_train,y_train, epochs=5) # Declares what data the model will use
+history = model.fit(x_train,y_train, epochs=5) # Declares what data the model will use
 
 accuracy, loss = model.evaluate(x_test, y_test) # Declares what data the model will use to test
 print(accuracy)
 print(loss)
 
+# Plot loss
+plt.figure()
+plt.xlabel("Epoch")
+plt.ylabel("Crossentropy loss")
+
+plt.plot(history.history['loss']) # Get loss history & plot it
+
+plt.show()
