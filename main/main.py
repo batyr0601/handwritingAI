@@ -20,22 +20,21 @@ model.add(tf.keras.layers.Dense(units=10, activation = tf.nn.softmax)) # Add out
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train,y_train, epochs=5) # Declares what data the model will use
-
-accuracy, loss = model.evaluate(x_test, y_test) # Declares what data the model will use to test
-print(accuracy)
-print(loss)
+history = model.fit(x_train,y_train, epochs=5, validation_data=(x_test,y_test)) # Declares what data the model will use
 
 # Plot loss
 plt.figure()
 plt.xlabel("Epoch")
 plt.ylabel("Crossentropy loss")
 
-plt.plot(history.history['loss']) # Get loss history & plot it
+# Get loss history & plot it
+plt.plot(history.history['loss'], label = 'loss')
+plt.plot(history.history['val_loss'], label ='val loss')
 
+plt.legend()
 plt.show()
 
-
+"""
 while(True): # Input loop for numbers
     path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
     if(path == 'EXIT'):
@@ -54,5 +53,5 @@ while(True): # Input loop for numbers
             count += 1
         plt.imshow(img[0])
         plt.show()
-
+"""
 
