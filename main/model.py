@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
-if ((os.getcwd).split(os.sep)[-1] == 'handwritingAI'):
+if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
     pass
 else:
     os.chdir(f'{os.getcwd()}//handwritingAI')
