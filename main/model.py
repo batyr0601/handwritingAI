@@ -4,7 +4,10 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
-os.chdir(f'{os.getcwd()}//handwritingAI')
+if ((os.getcwd).split(os.sep)[-1] == 'handwritingAI'):
+    pass
+else:
+    os.chdir(f'{os.getcwd()}//handwritingAI')
 
 mnist = tf.keras.datasets.mnist # Gets mnist data set
 (x_train, y_train), (x_test, y_test) = mnist.load_data() # Loads data into training and test sets
