@@ -34,7 +34,7 @@ model.add(tf.keras.layers.Dense(10, activation = tf.nn.softmax))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test))
+history = model.fit(x_train,y_train, epochs=8, validation_data=(x_test,y_test))
 
 # Plot loss
 plt.figure()
