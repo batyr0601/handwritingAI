@@ -46,6 +46,3 @@ plt.legend()
 plt.show()
 
 model.save("model.tflearn")
-
-
-
