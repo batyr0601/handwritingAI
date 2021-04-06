@@ -29,7 +29,7 @@ model.add(tf.keras.layers.Dense(10, activation = tf.nn.softmax))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(x_train,y_train, epochs=2, validation_data=(x_test,y_test)) # Declares what data the model will use
+history = model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test)) # Declares what data the model will use
 
 # Plot loss
 plt.figure()
@@ -43,3 +43,4 @@ plt.plot(history.history['val_loss'], label ='val loss')
 plt.legend()
 plt.show()
 
+model.save('model-v1')
