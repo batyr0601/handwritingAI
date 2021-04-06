@@ -43,4 +43,4 @@ plt.plot(history.history['val_loss'], label ='val loss')
 plt.legend()
 plt.show()
 
-model.save('model_v1')
+model.save('model_v1.h5')
