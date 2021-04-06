@@ -3,8 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
+import pickle
 
-model_v1 = tf.keras.models.load_model('model-v1')
+model = pickle.load(open ("main\\trainedModel.pickle", "rb"))
+
 
 while(True): # Input loop for numbers
     path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
@@ -16,7 +18,7 @@ while(True): # Input loop for numbers
         img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         img = np.array([img])
         img = img.reshape(1,28,28,1)
-        prediction = model-v1.predict(img)
+        prediction = model.predict(img)
         print(prediction)
         plt.imshow(img[0])
         plt.show()
