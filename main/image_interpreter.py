@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
-os.chdir(f'{os.getcwd()}//handwritingAI')
-
 model = tf.keras.models.load_model('model.tflearn')
 
 while(True): # Input loop for numbers
@@ -22,5 +20,3 @@ while(True): # Input loop for numbers
         print(prediction)
         plt.imshow(img[0])
         plt.show()
-
-'f'
