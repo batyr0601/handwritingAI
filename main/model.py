@@ -33,22 +33,21 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 try:
     model = tf.keras.models.load_model('model.tflearn')
 except:
-    model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test))
+    history = model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test))
+
+    # Plot loss
+    plt.figure()
+    plt.xlabel("Epoch")
+    plt.ylabel("Crossentropy loss")
+
+    # Get loss history & plot it
+    plt.plot(history.history['loss'], label = 'loss')
+    plt.plot(history.history['val_loss'], label ='val loss')
+
+    plt.legend()
+    plt.show()
+
     model.save("model.tflearn")
-
-
-# Plot loss
-plt.figure()
-plt.xlabel("Epoch")
-plt.ylabel("Crossentropy loss")
-
-# Get loss history & plot it
-'''plt.plot(history.history['loss'], label = 'loss')
-plt.plot(history.history['val_loss'], label ='val loss')
-
-plt.legend()
-plt.show()'''
-
 
 while(True): # Input loop for numbers
     path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
