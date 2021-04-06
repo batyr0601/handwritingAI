@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
-import pickle
+
+os.chdir(f'{os.getcwd()}//handwritingAI')
 
 mnist = tf.keras.datasets.mnist # Gets mnist data set
 (x_train, y_train), (x_test, y_test) = mnist.load_data() # Loads data into training and test sets
@@ -30,37 +31,21 @@ model.add(tf.keras.layers.Dense(10, activation = tf.nn.softmax))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-try:
-    model = tf.keras.models.load_model('model.tflearn')
-except:
-    history = model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test))
+history = model.fit(x_train,y_train, epochs=10, validation_data=(x_test,y_test))
 
-    # Plot loss
-    plt.figure()
-    plt.xlabel("Epoch")
-    plt.ylabel("Crossentropy loss")
+# Plot loss
+plt.figure()
+plt.xlabel("Epoch")
+plt.ylabel("Crossentropy loss")
 
-    # Get loss history & plot it
-    plt.plot(history.history['loss'], label = 'loss')
-    plt.plot(history.history['val_loss'], label ='val loss')
+# Get loss history & plot it
+plt.plot(history.history['loss'], label = 'loss')
+plt.plot(history.history['val_loss'], label ='val loss')
 
-    plt.legend()
-    plt.show()
+plt.legend()
+plt.show()
 
-    model.save("model.tflearn")
+model.save("model.tflearn")
 
-while(True): # Input loop for numbers
-    path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
-    if(path == 'EXIT'):
-        break
-    else:
-        path = path.replace(os.sep,'/') # Fix bug with file paths
-        img = cv.imread(path)
-        img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        img = np.array([img])
-        img = img.reshape(1,28,28,1)
-        prediction = model.predict(img)
-        print(prediction)
-        plt.imshow(img[0])
-        plt.show()
+
 

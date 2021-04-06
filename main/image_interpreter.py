@@ -3,10 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
-import pickle
 
-model = pickle.load(open ("main\\trainedModel.pickle", "rb"))
+os.chdir(f'{os.getcwd()}//handwritingAI')
 
+model = tf.keras.models.load_model('model.tflearn')
 
 while(True): # Input loop for numbers
     path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
