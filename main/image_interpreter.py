@@ -22,3 +22,5 @@ while(True): # Input loop for numbers
         print(prediction)
         plt.imshow(img[0])
         plt.show()
+
+'f'
