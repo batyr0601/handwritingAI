@@ -10,22 +10,20 @@ if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
     pass
 else:
     os.chdir(f'{os.getcwd()}//handwritingAI')
-
 model = tf.keras.models.load_model('model.tflearn')
 
 lastx, lasty = 0, 0
-
 def xy(event):
     global lastx, lasty
     lastx, lasty = event.x, event.y # Gets and sets x,y position of mouse
 
 def addLine(event):
     global lastx, lasty
-    canvas.create_line((lastx, lasty, event.x, event.y), width = 50)
+    canvas.create_line((lastx, lasty, event.x, event.y), width = 10)
 
     lastx, lasty = event.x, event.y
 
-def save(event):
+def save():
     x=root.winfo_rootx()+canvas.winfo_x()
     y=root.winfo_rooty()+canvas.winfo_y()
     x1=x+canvas.winfo_width()
@@ -37,22 +35,34 @@ def save(event):
     img = np.invert(np.array([img]))
     img = img.reshape(1,28,28,1)
     prediction = model.predict(img)
-    print(np.argmax(prediction))
+    predictionText.insert(tk.END, (np.argmax(prediction)))
     plt.imshow(img[0])
     plt.show()
 
-# Creates tkinter frame
+def clear():
+    canvas.delete("all")
+
+# Creates tkinter framing instance
 root = tk.Tk()
-root.geometry("800x800")
-root.columnconfigure(1, weight=1)
-root.rowconfigure(1, weight=1)
+root.title("Epic Handwriting AI")
+#root.geometry("800x800")
+root.columnconfigure(4, weight=1)
+root.rowconfigure(2, weight=1)
 
 canvas = tk.Canvas(root, bg='white') # Create canvas object
-canvas.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S)) # Assign canvas object to tkinter frame
+canvas.grid(column=0, row = 0, columnspan=2, sticky=(tk.N)) # Assign canvas object to tkinter frame
+
+button = tk.Button(root, text="Predict", command=save)
+button.grid(column=3, row=0, sticky=(tk.W))
+
+button1 = tk.Button(root, text="Clear", command=clear)
+button1.grid(column=4, row=0, sticky=(tk.E))
+
+predictionText = tk.Text(root)
+predictionText.grid(column=0,row=1)
 
 # Event listeners
 canvas.bind("<Button-1>", xy)
 canvas.bind("<B1-Motion>", addLine)
-root.bind("<Control-s>", save)
 
 root.mainloop()
