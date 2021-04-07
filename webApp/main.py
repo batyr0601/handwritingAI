@@ -20,23 +20,11 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-    file = request.files['file'].stream.read()
-    img = np.array(file)
-    return 
+    file = request.files['file']
+    file.save(file.filename)
+    print(file)
+    return "gg"
 
-
-'''
-    img = cv.imread(file)
-    img = cv.resize(img,(28,28))
-    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    img = np.invert(np.array([img]))
-    img = img.reshape(1,28,28,1)
-    prediction = model.predict(img)
-    print(np.argmax(prediction))
-
-    return np.argmax(prediction)
-    #return redirect(url_for('home'))
-'''
 if __name__ == '__main__':
     app.run(debug=True)
 
