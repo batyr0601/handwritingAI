@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
+if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
+    pass
+else:
+    os.chdir(f'{os.getcwd()}//handwritingAI')
+
 model = tf.keras.models.load_model('model.tflearn')
 
 while(True): # Input loop for numbers
@@ -14,9 +19,11 @@ while(True): # Input loop for numbers
         path = path.replace(os.sep,'/') # Fix bug with file paths
         img = cv.imread(path)
         img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        img = np.array([img])
+        img = np.invert(np.array([img]))
         img = img.reshape(1,28,28,1)
         prediction = model.predict(img)
-        print(prediction)
+        print(np.argmax(prediction))
         plt.imshow(img[0])
         plt.show()
+
+
