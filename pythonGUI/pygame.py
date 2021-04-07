@@ -32,6 +32,5 @@ def main():
                 pygame.quit()
             elif event.type == MOUSEWHEEL:
 
-if __name__ == '__main__':
-    main()
+
 
