@@ -18,6 +18,7 @@ while(True): # Input loop for numbers
     else:
         path = path.replace(os.sep,'/') # Fix bug with file paths
         img = cv.imread(path)
+        img = cv.resize(img,(28,28))
         img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         img = np.invert(np.array([img]))
         img = img.reshape(1,28,28,1)
@@ -25,5 +26,3 @@ while(True): # Input loop for numbers
         print(np.argmax(prediction))
         plt.imshow(img[0])
         plt.show()
-
-
