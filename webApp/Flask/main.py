@@ -6,8 +6,6 @@ import base64
 import matplotlib.pyplot as plt
 import io
 import numpy as np
-import urllib
-from binascii import a2b_base64
 import re
 import tensorflow as tf
 
@@ -44,5 +42,3 @@ def upload():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
