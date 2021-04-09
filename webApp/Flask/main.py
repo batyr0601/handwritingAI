@@ -1,10 +1,13 @@
 from flask import Flask, redirect, url_for, render_template, request
 import os
+import cv2 as cv
+from PIL import Image
+import base64
+import matplotlib.pyplot as plt
+import io
+import numpy as np
 '''
 import tensorflow as tf
-import cv2 as cv
-import numpy as np
-
 
 if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
     pass
@@ -13,6 +16,7 @@ else:
 
 model = tf.keras.models.load_model('model.tflearn')
 '''
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -21,9 +25,9 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-    file = request.form.get('canvas')
-    #file.save(file.filename)
+    file = request.form['my_hidden']
     print(file)
+
     return "gg"
 
 if __name__ == '__main__':
