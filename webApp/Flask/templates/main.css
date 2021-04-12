@@ -9,6 +9,7 @@ body {
 
 #can {
 	border: 2px solid;
+    background: white;
 }
 
 form {
@@ -59,4 +60,9 @@ input:active {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	top: 0.375em;
+}
+
+header {
+    background:  #4ec4cf;
+    color: white;
 }
