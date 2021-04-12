@@ -97,12 +97,26 @@
 
     </script>
     <body onload="init()">
-        <form method="POST" action="" enctype="multipart/form-data" name="form1">
-            <canvas name='canvas' id="can" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
-            <input type='hidden' id='my_hidden' name='my_hidden'>
-            <input type="button" value="Submit" id="btn" size="30" onclick="formify()" style="position:absolute;top:55%;left:10%;">
-            <input type="button" value="Clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:15%;">
-        </form>
+        <header>
+            <h1>Epic handwriting ai</h1>
+        </header>
+        <section>
+            <div>
+                <form method="POST" action="" enctype="multipart/form-data" name="form1">
+                    <div>
+                        <canvas name='canvas' id="can" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
+                        <input type='hidden' id='my_hidden' name='my_hidden'>
+                    </div>
+                    <div>
+                        <input type="button" value="Submit" id="btn" size="30" onclick="formify()" style="position:absolute;top:55%;left:10%;">
+                        <input type="button" value="Clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:15%;">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <footer>
+            <h4>by batyr, timur, and colegio</h4>
+        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     </body>
 </html>
