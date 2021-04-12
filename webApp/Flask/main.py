@@ -38,7 +38,7 @@ def upload():
     img = img.reshape(1,28,28,1)
     prediction = model.predict(img)
 
-    return str(np.argmax(prediction))
+    return render_template('index.html',content=str(np.argmax(prediction)))
 
 if __name__ == '__main__':
     app.run(debug=True)
