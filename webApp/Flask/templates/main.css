@@ -61,3 +61,8 @@ input:active {
 	box-shadow: none;
 	top: 0.375em;
 }
+
+header {
+	background: #4ec4cf;
+	color: white;
+}
