@@ -1,5 +1,5 @@
 # handwritingAI
-Keras neural network 
+Keras neural network used to predict handwritten numbers through a Flask website 
 
 
 ## Dependencies
