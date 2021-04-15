@@ -1,6 +1,7 @@
 # handwritingAI
 Keras neural network 
 
+
 ## Dependencies
 Python 3.6.8+ 
  * Flask
@@ -12,22 +13,22 @@ Python 3.6.8+
  * numpy
  * TensorFlow 2.3.1
 
+
 ## Usage
-### > model
+### >model
 Used to train and test a TensorFlow keras model
 
-### > model.tflearn
+### >model.tflearn
 Trained model used for the website 
 
-
-### > Flask
-#### > static
+### >Flask
+**>static**
 Static elements of the webpage
 
-#### > templates
+**>templates**
 HTML template of the webpage
 
-#### main.py
+**main.py**
 Python backend of the website;
 Run this to start the local webserver
 
