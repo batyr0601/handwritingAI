@@ -26,9 +26,11 @@ Trained model used for the website
 
 Static elements of the webpage
 
+
 **>templates**
 
 HTML template of the webpage
+
 
 **main.py**
 
