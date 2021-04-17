@@ -14,7 +14,7 @@ if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
 else:
     os.chdir(f'{os.getcwd()}//handwritingAI')
 
-model = tf.keras.models.load_model('model.tflearn')
+model = tf.keras.models.load_model('model.emnistDigits')
 
 app = Flask(__name__)
 

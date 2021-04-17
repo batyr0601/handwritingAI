@@ -9,7 +9,7 @@ if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
 else:
     os.chdir(f'{os.getcwd()}//handwritingAI')
 
-model = tf.keras.models.load_model('model.tflearn')
+model = tf.keras.models.load_model('model.emnistDigits')
 
 while(True): # Input loop for numbers
     path = input("Absolute path of 28x28 number 0-9 (EXIT to exit): ")
