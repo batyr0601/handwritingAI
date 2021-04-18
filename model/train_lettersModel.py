@@ -18,25 +18,24 @@ else:
 x_train = x_train.reshape(124800,28,28,1)
 x_test = x_test.reshape(20800,28,28,1)
 
-# Categorize labels by one-hot encoding (Only used for digit classification)
-#y_test = tf.keras.utils.to_categorical(y_test)
-#y_train = tf.keras.utils.to_categorical(y_train)
-
 # Define model
 model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Conv2D(32, 3, strides=(2,2), activation=tf.nn.relu, input_shape=(28,28,1)))
+model.add(tf.keras.layers.Conv2D(32, 3, padding="same", strides= (2,2), activation=tf.nn.relu, input_shape=(28,28,1)))
 model.add(tf.keras.layers.MaxPool2D(2))
-model.add(tf.keras.layers.Conv2D(64, 3, activation=tf.nn.relu))
+model.add(tf.keras.layers.Conv2D(64, 3, padding="same", activation=tf.nn.relu))
+model.add(tf.keras.layers.MaxPool2D(2))
+model.add(tf.keras.layers.Conv2D(128, 3, padding="same", activation=tf.nn.relu))
 model.add(tf.keras.layers.MaxPool2D(2))
 model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(256, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dropout(0.35))
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dropout(0.2))
-model.add(tf.keras.layers.Dense(64, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dropout(0.2))
+model.add(tf.keras.layers.Dropout(0.35))
 model.add(tf.keras.layers.Dense(27, activation = tf.nn.softmax))
 
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy']) # Compile model (Remove sparse for digit classification)
-history = model.fit(x_train,y_train, epochs=25, validation_data=(x_test,y_test)) # Train model
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy']) # Compile model
+history = model.fit(x_train,y_train, epochs=15, validation_data=(x_test,y_test)) # Train model
 
 
 # Plot loss
