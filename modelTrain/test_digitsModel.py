@@ -42,8 +42,8 @@ while(True): # Input loop for numbers
         cntImg = bwImg[y:y+h, x:x+w]
         cntImg = cv.copyMakeBorder(cntImg, 1, 1, 1, 1, cv.BORDER_CONSTANT, value = (255,255,255))
 
-        invImg = np.invert(np.array([cntImg]))
-        invImg = cv.resize(invImg,(28,28))
+        invImg = cv.resize(cntImg,(28,28))
+        invImg = np.invert([invImg])
         finalImg = invImg.reshape(1,28,28,1)
         prediction = model.predict(finalImg)
         predictionDict = {}
