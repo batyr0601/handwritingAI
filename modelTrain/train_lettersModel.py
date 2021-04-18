@@ -5,10 +5,12 @@ import tensorflow as tf
 import os
 from extra_keras_datasets import emnist
 
-if ((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
+if ((os.getcwd()).split(os.sep)[-1] == 'models'):
     pass
+elif((os.getcwd()).split(os.sep)[-1] == 'handwritingAI'):
+    os.chdir(f'{os.getcwd()}//models')
 else:
-    os.chdir(f'{os.getcwd()}//handwritingAI')
+    os.chdir(f'{os.getcwd()}//handwritingAI//models')
 
 # Get data
 (x_train, y_train), (x_test, y_test) = emnist.load_data(type='letters') # Loads data into training and test sets
