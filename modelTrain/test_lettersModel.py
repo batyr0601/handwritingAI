@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
+import math
 
 if ((os.getcwd()).split(os.sep)[-1] == 'models'):
     pass
@@ -21,15 +22,30 @@ while(True): # Input loop for numbers
         path = path.replace(os.sep,'/') # Fix bug with file paths
         img = cv.imread(path)
         img = cv.resize(img,(28,28))
-        img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        cnt, _ = cv.findContours(img, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+        bwImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+        cnt, _ = cv.findContours(bwImg, 1,2)
         x,y,w,h = cv.boundingRect(cnt[0])
-        img = img[y:y+h, x:x+w]
-        img = cv.copyMakeBorder(img, 1, 1, 1, 1, cv.BORDER_CONSTANT, value = (255,255,255))
-        img = cv.resize(img,(28,28))
-        img = np.invert(np.array([img]))
-        img = img.reshape(1,28,28,1)
-        prediction = model.predict(img)
+
+        if w > h:
+            h1 = h
+            h = w
+            diff = math.floor((h-h1)/2)
+            y = y-diff
+
+        else:
+            w1 = h
+            w = h
+            diff = math.floor((w-w1)/2)
+            x = x-diff
+
+        cntImg = bwImg[y:y+h, x:x+w]
+        cntImg = cv.copyMakeBorder(cntImg, 1, 1, 1, 1, cv.BORDER_CONSTANT, value = (255,255,255))
+
+        invImg = cv.resize(cntImg,(28,28))
+        invImg = np.invert([invImg])
+        finalImg = invImg.reshape(1,28,28,1)
+        prediction = model.predict(finalImg)
         predictionDict = {}
 
         for i in range(3):
