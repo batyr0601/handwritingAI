@@ -35,6 +35,7 @@ def upload():
     img = Image.new("RGB", im.size, "WHITE")
     img.paste(im, (0, 0), im)
     img = cv.cvtColor(np.asarray(img), cv.COLOR_RGB2BGR)
+
     bwImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY) # Remove color channels
     bwImg = cv.adaptiveThreshold(bwImg,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,115,1) # Make image B&W
 
