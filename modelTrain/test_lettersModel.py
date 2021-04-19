@@ -21,11 +21,12 @@ while(True): # Input loop for numbers
     else:
         path = path.replace(os.sep,'/') # Fix bug with file paths
         img = cv.imread(path)
-        img = cv.resize(img,(28,28))
-        bwImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        bwImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY) # Remove color channels
+        bwImg = cv.adaptiveThreshold(bwImg,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,115,1) # Make image B&W
 
-        cnt, _ = cv.findContours(bwImg, 1,2)
-        x,y,w,h = cv.boundingRect(cnt[0])
+        cnts, _ = cv.findContours(bwImg, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+        cnt = cnts[1] if len(cnts) == 2 else cnts[0]
+        x,y,w,h = cv.boundingRect(cnt)
 
         if w > h:
             h1 = h
@@ -40,9 +41,9 @@ while(True): # Input loop for numbers
             x = x-diff
 
         cntImg = bwImg[y:y+h, x:x+w]
-        cntImg = cv.copyMakeBorder(cntImg, 1, 1, 1, 1, cv.BORDER_CONSTANT, value = (255,255,255))
+        cntImg1 = cv.copyMakeBorder(cntImg, round(h/28), round(h/28), round(w/28), round(w/28), cv.BORDER_CONSTANT, value = (255,255,255))
 
-        invImg = cv.resize(cntImg,(28,28))
+        invImg = cv.resize(cntImg1,(28,28))
         invImg = np.invert([invImg])
         finalImg = invImg.reshape(1,28,28,1)
         prediction = model.predict(finalImg)
