@@ -47,7 +47,7 @@ while(True): # Input loop for numbers
             x = x-diff
 
         cntImg = bwImg[y:y+h, x:x+w]
-        cntImg1 = cv.copyMakeBorder(cntImg, round(h/28), round(h/28), round(w/28), round(w/28), cv.BORDER_CONSTANT, value = (255,255,255))
+        cntImg1 = cv.copyMakeBorder(cntImg, round(h/14), round(h/14), round(w/14), round(w/14), cv.BORDER_CONSTANT, value = (255,255,255))
 
         invImg = cv.resize(cntImg1,(28,28))
         invImg = np.invert([invImg])
