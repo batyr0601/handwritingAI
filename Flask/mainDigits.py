@@ -8,6 +8,7 @@ import io
 import numpy as np
 import re
 import tensorflow as tf
+import math
 
 if ((os.getcwd()).split(os.sep)[-1] == 'models'):
     pass
@@ -34,16 +35,38 @@ def upload():
     img = Image.new("RGB", im.size, "WHITE")
     img.paste(im, (0, 0), im)
     img = cv.cvtColor(np.asarray(img), cv.COLOR_RGB2BGR)
-    img = cv.resize(img,(28,28))
-    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    cnt, _ = cv.findContours(img, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-    x,y,w,h = cv.boundingRect(cnt[0])
-    img = img[y:y+h, x:x+w]
-    img = cv.copyMakeBorder(img, 1, 1, 1, 1, cv.BORDER_CONSTANT, value = (255,255,255))
-    img = cv.resize(img,(28,28))
-    img = np.invert(np.array([img]))
-    img = img.reshape(1,28,28,1)
-    prediction = model.predict(img)
+    bwImg = cv.cvtColor(img, cv.COLOR_BGR2GRAY) # Remove color channels
+    bwImg = cv.adaptiveThreshold(bwImg,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,115,1) # Make image B&W
+
+    cnts, _ = cv.findContours(bwImg, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+
+    if len(cnts) == 1:
+        cnt = cnts[0]
+
+    else:
+        cnt = cnts[1]
+
+    x,y,w,h = cv.boundingRect(cnt)
+
+    if w > h:
+        h1 = h
+        h = w
+        diff = math.floor((h-h1)/2)
+        y = y-diff
+
+    else:
+        w1 = h
+        w = h
+        diff = math.floor((w-w1)/2)
+        x = x-diff
+
+    cntImg = bwImg[y:y+h, x:x+w]
+    cntImg1 = cv.copyMakeBorder(cntImg, round(h/28), round(h/28), round(w/28), round(w/28), cv.BORDER_CONSTANT, value = (255,255,255))
+
+    invImg = cv.resize(cntImg1,(28,28))
+    invImg = np.invert([invImg])
+    finalImg = invImg.reshape(1,28,28,1)
+    prediction = model.predict(finalImg)
     predictionDict = {}
 
     for i in range(3):

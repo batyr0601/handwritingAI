@@ -25,7 +25,13 @@ while(True): # Input loop for numbers
         bwImg = cv.adaptiveThreshold(bwImg,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,115,1) # Make image B&W
 
         cnts, _ = cv.findContours(bwImg, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-        cnt = cnts[1] if len(cnts) == 2 else cnts[0]
+
+        if len(cnts) == 1:
+            cnt = cnts[0]
+
+        else:
+            cnt = cnts[1]
+
         x,y,w,h = cv.boundingRect(cnt)
 
         if w > h:
@@ -35,7 +41,7 @@ while(True): # Input loop for numbers
             y = y-diff
 
         else:
-            w1 = h
+            w1 = w
             w = h
             diff = math.floor((w-w1)/2)
             x = x-diff

@@ -25,7 +25,13 @@ while(True): # Input loop for numbers
         bwImg = cv.adaptiveThreshold(bwImg,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,115,1) # Make image B&W
 
         cnts, _ = cv.findContours(bwImg, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-        cnt = cnts[1] if len(cnts) == 2 else cnts[0]
+
+        if len(cnts) == 1:
+            cnt = cnts[0]
+
+        else:
+            cnt = cnts[1]
+
         x,y,w,h = cv.boundingRect(cnt)
 
         if w > h:
@@ -53,8 +59,8 @@ while(True): # Input loop for numbers
             predictionDict["ans"+str(i)] = [chr(int(f"{np.argmax(prediction)+96}")),str(f"{((prediction[0][np.argmax(prediction)])*100):.2f}%")]
             prediction[0][np.argmax(prediction)] = 0
 
-        for x in predictionDict.keys():
-            print(f"{(predictionDict[x])[0]} {(predictionDict[x])[1]}")
+        for z in predictionDict.keys():
+            print(f"{(predictionDict[z])[0]} {(predictionDict[z])[1]}")
 
-        plt.imshow(img[0])
+        plt.imshow(finalImg[0])
         plt.show()
