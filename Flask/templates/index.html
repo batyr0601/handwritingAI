@@ -8,7 +8,6 @@
         <link rel = "stylesheet" href = "main.css">
         <title>EPIC HANDRWITING AI</title>
     </head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
         var canvas, ctx, flag = false,
             prevX = 0,
@@ -92,25 +91,11 @@
                 }
             }
         }
-        /*
+
         function formify() {
             document.getElementById('my_hidden').value = canvas.toDataURL('');
             document.forms["form1"].submit();
-        }*/
-
-        $(document).ready(function() {
-            $('form').on('submit', function(event){
-                
-                getElementById('my_hidden').value = getElementById('can').toDataURL('');
-                var img = $('#my_hidden').val();
-                $.ajax({
-                    data : {imgUrl: img},
-                    type:'POST',
-                    url:'/'
-                });
-                event.preventDefault();
-            });
-        });
+        }
 
     </script>
     <body onload="init()">
@@ -119,13 +104,13 @@
         </header>
         <section>
             <div>
-                <form>
+                <form method="POST" action="" enctype="multipart/form-data" name="form1">
                     <div>
                         <canvas name='canvas' id="can" width="400" height="400"></canvas>
                         <input type='hidden' id='my_hidden' name='my_hidden'>
                     </div>
                     <div id = "buttons">
-                        <input type="submit" value="Submit" id="btn" size="30">
+                        <input type="button" value="Submit" id="btn" size="30" onclick="formify()">
                         <input type="button" value="Clear" id="clr" size="23" onclick="erase()">
                     </div>
                 </form>
