@@ -27,7 +27,7 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-    file = request.form['my_hidden']
+    file = request.form['imgUrl']
 
     imgstr = re.search(r'base64,(.*)', file).group(1)
     image_bytes = io.BytesIO(base64.b64decode(imgstr))

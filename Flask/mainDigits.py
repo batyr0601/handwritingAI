@@ -27,7 +27,9 @@ def home():
 
 @app.route('/', methods=['POST'])
 def upload():
-    file = request.form['my_hidden']
+    file = request.form['imgUrl']
+    print(type(file))
+    print(file)
 
     imgstr = re.search(r'base64,(.*)', file).group(1)
     image_bytes = io.BytesIO(base64.b64decode(imgstr))
@@ -74,7 +76,7 @@ def upload():
         predictionDict["ans"+str(i)] = [str(f"{np.argmax(prediction)}"),str(f"{((prediction[0][np.argmax(prediction)])*100):.2f}%")]
         prediction[0][int(predictionDict["ans"+str(i)][0])] = 0
 
-    return render_template('index.html',
+    return render_template(
                             ans1=f"{predictionDict['ans0'][0]} {predictionDict['ans0'][1]}",
                             ans2=f"{predictionDict['ans1'][0]} {predictionDict['ans1'][1]}",
                             ans3=f"{predictionDict['ans2'][0]} {predictionDict['ans2'][1]}")
